@@ -13,7 +13,7 @@ server.use(express.json())
 
 const produtoArray = [];
 const pedidoArray = [];
-const vendaArray = [];
+const clienteArray = [];
 
 //Rota para incluir um novo produto no cadastro - POST - utilizar REQUST BODY
 server.post('/cadastroproduto', (req, res) => {
@@ -112,9 +112,9 @@ server.post('/finalizavenda', (req, res) => {
 
     const { dadosCliente } = req.body;
     
-    pratosArray.push(dadosCliente);
+    clienteArray.push(dadosCliente);
     
-    return res.json(vendaArray);
+    return res.json(clienteArray);
 })
 
 server.listen(3000);
