@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+//para criar a tabela(Migration): npx prisma migrate dev 
+model Usuario {
+ id           Int @id @default(autoincrement())
+ nome         String
+ email        String
+ password     String
+ dt_criacao   DateTime? @default(now())
+ dt_alteracao DateTime? @default(now())
+ 
+ @@map("usuarios")
+
+}
+model Produto {
+ id           Int @id @default(autoincrement())
+ descricao    String
+ qt_estoque   Int
+ vl_unitario  Decimal
+ 
+ @@map("produtos")
+
+}
+model Venda {
+ id           Int @id @default(autoincrement())
+ dt_operacao  DateTime? @default(now())
+ 
+ @@map("vendas")
+
+}
+model ItemVenda {
+ id_venda     Int
+ id           Int @id @default(autoincrement())
+ descricao    String
+ qt_vendida   Int
+ vl_vendido   Decimal
+ 
+ @@map("itemvendas")
+
+}
+model Cliente {
+ id_venda     Int @unique
+ cpf          String @id
+ nome         String
+ endereco     String
+ forma_pagto  String
+ vl_pago      Decimal
+ 
+ @@map("clientes")
+
+}
